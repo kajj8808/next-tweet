@@ -12,3 +12,10 @@
 
 - [x] prisma ( local file )
 - [x] swr
+
+## pages
+
+- [] /
+- [] /log-in
+- [] /create-account
+- [] /tweet/[id]

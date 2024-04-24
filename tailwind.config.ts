@@ -7,8 +7,12 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: { "product-text": "#4f3318", "product-background": "#FCF9F2" },
     extend: {
+      colors: {
+        "product-background": "#F9F8F4",
+        "product-color": "#1C2A44",
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
