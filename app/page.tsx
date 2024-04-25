@@ -4,6 +4,7 @@ import SWRTester from "@/components/SWRTester";
 import { useState } from "react";
 import Tweet from "@/components/Tweet";
 import Button from "@/components/Button";
+import { authWithUserSession } from "./lib/server/auth";
 /* model Tweet {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
@@ -16,6 +17,8 @@ import Button from "@/components/Button";
 } */
 
 export default function Home() {
+  const userSession = authWithUserSession();
+  console.log(userSession);
   return (
     <SWRProvider>
       <main className="w-full min-h-screen pb-10 bg-product-background">

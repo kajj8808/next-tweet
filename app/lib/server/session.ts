@@ -1,14 +1,14 @@
 import { cookies } from "next/headers";
 import "server-only";
 
-export async function createUserSession(userId: string) {
-  cookies().set("session", userId);
+export function createUserSession(userId: string) {
+  cookies().set("user-session", userId);
 }
 
-export async function getUserSession() {
-  return cookies().get("session");
+export function getUserSession() {
+  return cookies().get("user-session");
 }
 
-export async function deleteUserSession() {
-  cookies().delete("session");
+export function deleteUserSession() {
+  cookies().delete("user-session");
 }

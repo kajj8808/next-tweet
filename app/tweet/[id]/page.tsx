@@ -1,12 +1,18 @@
+import { authWithUserSession } from "@/app/lib/server/auth";
 import Button from "@/components/Button";
 import ReplyTweet from "@/components/ReplyTweet";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
 
-export default function TweetPage({ params }: { params: { id: string } }) {
-  console.log(params.id);
-  const sessionCookie = cookies().get("session")?.value;
-  console.log(sessionCookie);
+export default async function TweetPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const user = await authWithUserSession();
+
+  console.log(user);
   return (
     <main className="flex items-center justify-center w-full min-h-screen pb-10 bg-product-background">
       <div className="flex flex-col max-w-xl shadow-lg">
