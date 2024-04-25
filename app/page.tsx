@@ -3,6 +3,7 @@ import { SWRProvider } from "./lib/client/swr-provider";
 import SWRTester from "@/components/SWRTester";
 import { useState } from "react";
 import Tweet from "@/components/Tweet";
+import Button from "@/components/Button";
 /* model Tweet {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
@@ -18,8 +19,8 @@ export default function Home() {
   return (
     <SWRProvider>
       <main className="w-full min-h-screen pb-10 bg-product-background">
-        <div className="flex flex-col max-w-xl gap-3 mx-auto">
-          <div className="p-5 mt-5 bg-white shadow-lg">
+        <div className="flex flex-col max-w-xl mx-auto">
+          <div className="p-5 mt-5 bg-white border-b shadow-lg">
             <h1 className="mb-3 tracking-wide">NEXT-TWEET</h1>
             <div className="flex gap-1 mt-1">
               <input
@@ -27,12 +28,10 @@ export default function Home() {
                 placeholder="tweet"
                 className="w-full p-2 border rounded-md"
               />
-              <button className="px-6 text-xs font-light tracking-wider text-white rounded-full h-11 bg-product-color">
-                TWEET
-              </button>
+              <Button text="TWEET" />
             </div>
           </div>
-          <div>
+          <div className="flex flex-col">
             <Tweet />
             <Tweet />
             <Tweet />

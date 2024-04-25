@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import ReplyTweet from "@/components/ReplyTweet";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -130,9 +131,7 @@ export default function TweetPage({ params }: { params: { id: string } }) {
                 placeholder="post your reply"
                 className="w-full p-2 border rounded-md"
               />
-              <button className="px-6 text-xs font-light tracking-wider text-white rounded-full h-11 bg-product-color">
-                REPLY
-              </button>
+              <Button text="REPLY" />
             </div>
           </div>
           <ReplyTweet />
