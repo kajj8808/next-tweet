@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface CreateAccountForm {
@@ -8,7 +9,18 @@ interface CreateAccountForm {
 
 export default function CreateAccountForm() {
   const { register, handleSubmit } = useForm<CreateAccountForm>();
-  const onVaild = (formData: CreateAccountForm) => {};
+  const [isLoading, setIsLoading] = useState(true);
+
+  const onVaild = (formData: CreateAccountForm) => {
+    setIsLoading(true);
+    try {
+      // create account logic
+    } catch (error) {
+      // login error logic
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div
       className="w-full max-w-lg p-5 bg-white shadow-lg"
@@ -26,8 +38,11 @@ export default function CreateAccountForm() {
         <Link href={"/log-in"} className="text-sm text-product-color">
           Log in
         </Link>
+
         <button className="px-6 text-xs font-bold tracking-wider text-white rounded-full h-11 bg-product-color">
-          Create account
+          <span className={isLoading ? "animate-pulse" : ""}>
+            {isLoading ? "Loading..." : "Create account"}
+          </span>
         </button>
       </div>
     </div>

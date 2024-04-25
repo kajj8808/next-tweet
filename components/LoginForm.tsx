@@ -1,6 +1,8 @@
 "use client";
+import { cls } from "@lib/client/utiles";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface LoginForm {
@@ -9,11 +11,18 @@ interface LoginForm {
 export default function LoginForm() {
   const router = useRouter();
   const { register, handleSubmit } = useForm<LoginForm>();
+  const [isLoading, setIsLoading] = useState(false);
   const onVaild = async (formData: LoginForm) => {
-    const { ok } = await fetch("/api/user/enter");
-
-    if (ok === true) {
-      router.push("/");
+    setIsLoading(true);
+    try {
+      const { ok } = await fetch("/api/user/enter");
+      if (ok === true) {
+        router.push("/");
+      }
+    } catch (error) {
+      // login error logic
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -35,7 +44,9 @@ export default function LoginForm() {
           Create account
         </Link>
         <button className="px-6 text-xs font-bold tracking-wider text-white rounded-full h-11 bg-product-color">
-          Log in
+          <span className={isLoading ? "animate-pulse" : ""}>
+            {isLoading ? "Loading..." : "Log in"}
+          </span>
         </button>
       </div>
     </form>

@@ -1,9 +1,7 @@
-import { authWithUserSession } from "@/app/lib/server/auth";
-import Button from "@/components/Button";
-import ReplyTweet from "@/components/ReplyTweet";
-import { cookies } from "next/headers";
+import Button from "@components/Button";
+import ReplyTweet from "@components/ReplyTweet";
+import { authWithUserSession } from "@lib/server/auth";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
 
 export default async function TweetPage({
   params,

@@ -1,4 +1,4 @@
-import { getUserSession } from "@/app/lib/server/session";
+import { getUserSession } from "@lib/server/session";
 import { NextResponse } from "next/server";
 
 interface IResult {

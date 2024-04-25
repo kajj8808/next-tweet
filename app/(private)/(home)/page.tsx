@@ -1,10 +1,11 @@
 import useSWR from "swr";
-import { SWRProvider } from "./lib/client/swr-provider";
-import SWRTester from "@/components/SWRTester";
+import { SWRProvider } from "../../lib/client/swr-provider";
 import { useState } from "react";
-import Tweet from "@/components/Tweet";
-import Button from "@/components/Button";
-import { authWithUserSession } from "./lib/server/auth";
+
+import { authWithUserSession } from "../../lib/server/auth";
+import Button from "@components/Button";
+import Tweet from "@components/Tweet";
+
 /* model Tweet {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
