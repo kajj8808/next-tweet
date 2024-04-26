@@ -25,7 +25,8 @@ export default function Home() {
       <main className="w-full min-h-screen pb-10 bg-product-background">
         <div className="flex flex-col max-w-xl mx-auto">
           <div className="p-5 mt-5 bg-white border-b shadow-lg">
-            <h1 className="mb-3 tracking-wide">NEXT-TWEET</h1>
+            <h1 className="mb-3 font-semibold tracking-wide">NEXT-TWEET</h1>
+            <h5 className="text-xs">{userSession.value}</h5>
             <div className="flex gap-1 mt-1">
               <input
                 type="text"
