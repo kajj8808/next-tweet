@@ -24,14 +24,16 @@ model User {
 }
 
 model Tweet {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  text      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Like      Like[]
-  Coment    Coment[]
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int
+  text       String
+  shareCount Int?
+  viewCount  Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Like       Like[]
+  Coment     Coment[]
 }
 
 model Coment {

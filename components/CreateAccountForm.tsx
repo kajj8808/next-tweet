@@ -1,50 +1,80 @@
 "use client";
+import { cls } from "@lib/client/utiles";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import LoadingButton from "./LoadingButton";
+import Input from "./Input";
 
 interface CreateAccountForm {
   email: string;
 }
 
 export default function CreateAccountForm() {
-  const { register, handleSubmit } = useForm<CreateAccountForm>();
-  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
-  const onVaild = (formData: CreateAccountForm) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<CreateAccountForm>();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onVaild = async (formData: CreateAccountForm) => {
     setIsLoading(true);
     try {
       // create account logic
+      const { ok, errorMessage } = await (
+        await fetch("/api/user/enter", {
+          body: JSON.stringify({
+            email: formData.email,
+            type: "create-account",
+          }),
+          method: "POST",
+        })
+      ).json();
+      // 서버가 문제없고, 요청이 정상이라 가정.
+      if (ok === false) {
+        setError("email", { message: errorMessage });
+        return;
+      } else {
+        router.push("/");
+      }
     } catch (error) {
-      // login error logic
+      // 예상치 못한 에러 처리 (request 등등)
+      setError("email", { message: "Something's wrong reload the website" });
     } finally {
       setIsLoading(false);
     }
   };
   return (
-    <div
+    <form
       className="w-full max-w-lg p-5 bg-white shadow-lg"
       onSubmit={handleSubmit(onVaild)}
     >
       <h1>NEXT-TWEET</h1>
       <h5 className="mb-2 text-2xl">CREATE ACCOUNT</h5>
-      <input
+      <Input
+        register={register("email", {
+          required: "Enter an email address",
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: "Invalid email address",
+          },
+        })}
+        error={errors.email}
         type="email"
         placeholder="email"
-        className="w-full p-3.5 border rounded-md mt-5"
-        {...register("email")}
       />
       <div className="flex items-center justify-between mt-10">
         <Link href={"/log-in"} className="text-sm text-product-color">
           Log in
         </Link>
-
-        <button className="px-6 text-xs font-bold tracking-wider text-white rounded-full h-11 bg-product-color">
-          <span className={isLoading ? "animate-pulse" : ""}>
-            {isLoading ? "Loading..." : "Create account"}
-          </span>
-        </button>
+        <LoadingButton isLoading={isLoading} text="Create account" />
       </div>
-    </div>
+    </form>
   );
 }

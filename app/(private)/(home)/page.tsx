@@ -1,10 +1,10 @@
 import useSWR from "swr";
-import { SWRProvider } from "../../lib/client/swr-provider";
 import { useState } from "react";
 
-import { authWithUserSession } from "../../lib/server/auth";
 import Button from "@components/Button";
 import Tweet from "@components/Tweet";
+import { authWithUserSession } from "@lib/server/auth";
+import { SWRProvider } from "@lib/client/swr-provider";
 
 /* model Tweet {
   id        Int      @id @default(autoincrement())

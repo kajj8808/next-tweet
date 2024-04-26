@@ -4,23 +4,39 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import LoadingButton from "./LoadingButton";
+import Input from "./Input";
 
 interface LoginForm {
   email: string;
 }
 export default function LoginForm() {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<LoginForm>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<LoginForm>();
   const [isLoading, setIsLoading] = useState(false);
   const onVaild = async (formData: LoginForm) => {
     setIsLoading(true);
     try {
-      const { ok } = await fetch("/api/user/enter");
-      if (ok === true) {
+      const { ok, errorMessage } = await (
+        await fetch("/api/user/enter", {
+          body: JSON.stringify({ email: formData.email, type: "log-in" }),
+          method: "POST",
+        })
+      ).json();
+      if (ok === false) {
+        setError("email", { message: errorMessage });
+        return;
+      } else {
         router.push("/");
       }
     } catch (error) {
-      // login error logic
+      // 예상치 못한 에러 처리 (request 등등)
+      setError("email", { message: "Something's wrong reload the website" });
     } finally {
       setIsLoading(false);
     }
@@ -33,21 +49,23 @@ export default function LoginForm() {
     >
       <h1>NEXT-TWEET</h1>
       <h5 className="mb-2 text-2xl">LOG IN</h5>
-      <input
+      <Input
+        register={register("email", {
+          required: "Enter an email address",
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: "Invalid email address",
+          },
+        })}
+        error={errors.email}
         type="email"
         placeholder="email"
-        className="w-full p-3.5 border rounded-md mt-5"
-        {...register("email")}
       />
       <div className="flex items-center justify-between mt-10">
         <Link href={"/create-account"} className="text-sm text-product-color">
           Create account
         </Link>
-        <button className="px-6 text-xs font-bold tracking-wider text-white rounded-full h-11 bg-product-color">
-          <span className={isLoading ? "animate-pulse" : ""}>
-            {isLoading ? "Loading..." : "Log in"}
-          </span>
-        </button>
+        <LoadingButton isLoading={isLoading} text="Log in" />
       </div>
     </form>
   );
