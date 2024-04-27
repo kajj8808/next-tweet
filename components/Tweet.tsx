@@ -1,18 +1,43 @@
+"use client";
+import type { Coment, Like, Tweet, TweetView, User } from "@prisma/client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import TweetStatusBar from "./TweetStatusBar";
 
-export default function Tweet() {
+import useSWR from "swr";
+import { useEffect, useState } from "react";
+import LikeButton from "./LikeButton";
+
+export interface TweetProps extends Tweet {
+  user: { name: string };
+  _count: { Like: number; Coment: number; TweetView: number; Share: number };
+}
+interface Likes {
+  tweetId: number;
+}
+export default function Tweet({ tweet }: { tweet: TweetProps }) {
+  const { data } = useSWR<{ likes: Likes[] }>("/api/tweets/likes");
+  const [isLiked, setIsLiked] = useState(false);
+  useEffect(() => {
+    if (data) {
+      const { likes } = data;
+      setIsLiked(
+        likes.some((like) => {
+          return like.tweetId === tweet.id;
+        })
+      );
+    }
+  }, [data]);
+
   return (
     <Link
-      href={"/tweet/1"}
+      href={`/tweet/${tweet.id}`}
       className="p-5 transition-all bg-white border-b shadow-lg"
     >
-      <h5 className="mb-2 text-sm font-bold">NICK NAME</h5>
-      <span className="text-sm tracking-normal">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet
-        molestiae, ea accusamus suscipit sit corporis porro ut dicta quo
-        inventore, enim tempora similique consequatur quasi? Tempora praesentium
-        corporis porro cupiditate?
+      <h5 className="text-sm font-semibold tracking-wider text-product-color">
+        {tweet.user.name}
+      </h5>
+      <span className="text-sm tracking-normal text-product-color">
+        {tweet.text}
       </span>
       <div className="relative flex justify-between mt-5 text-gray-800">
         <div className="flex gap-1">
@@ -33,7 +58,7 @@ export default function Tweet() {
               ></path>
             </svg>
           </div>
-          <p className="text-sm">13</p>
+          <p className="text-sm">{tweet._count.Coment}</p>
         </div>
         <div className="flex gap-1">
           <div className="size-5">
@@ -53,28 +78,10 @@ export default function Tweet() {
               ></path>
             </svg>
           </div>
-          <p className="text-sm">13</p>
+          <p className="text-sm">{tweet._count.Share}</p>
         </div>
-        <div className="flex gap-1">
-          <div className="size-5">
-            <svg
-              data-slot="icon"
-              fill="none"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-              ></path>
-            </svg>
-          </div>
-          <p className="text-sm">13</p>
-        </div>
+        <LikeButton isLiked={isLiked} likes={tweet._count.Like} />
+
         <div className="flex gap-1">
           <div className="size-5">
             <svg
@@ -93,7 +100,7 @@ export default function Tweet() {
               ></path>
             </svg>
           </div>
-          <p className="text-sm">13</p>
+          <p className="text-sm">{tweet._count.TweetView}</p>
         </div>
       </div>
     </Link>

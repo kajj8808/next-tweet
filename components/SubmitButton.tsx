@@ -13,10 +13,11 @@ export default function SubmitButton({
   return (
     <button
       className={cls(
-        "px-6 text-xs tracking-wider rounded-full h-11 bg-product-color hover:bg-opacity-90",
+        "px-6 text-xs tracking-wider rounded-full h-11 bg-product-color",
         lightMode
           ? " font-light text-white uppercase"
-          : " font-bold  text-white"
+          : " font-bold  text-white",
+        isLoading ? "" : "hover:bg-opacity-90"
       )}
       disabled={isLoading}
     >

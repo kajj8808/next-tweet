@@ -1,12 +1,14 @@
+import { User } from "@prisma/client";
 import { cookies } from "next/headers";
 import "server-only";
 
-export function createUserSession(userId: string) {
-  cookies().set("user-session", userId);
+export function createUserSession(user: User) {
+  cookies().set("user-session", JSON.stringify(user));
 }
 
 export function getUserSession() {
-  return cookies().get("user-session");
+  const sessionData = cookies().get("user-session")?.value;
+  return sessionData ? JSON.parse(sessionData) : undefined;
 }
 
 export function deleteUserSession() {

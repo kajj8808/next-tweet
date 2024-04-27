@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
   if (user) {
     // set session data
     deleteUserSession();
-    createUserSession(user.name);
+    createUserSession(user);
     return NextResponse.json({ ok: true });
   }
 }

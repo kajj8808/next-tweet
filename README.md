@@ -19,3 +19,9 @@
 - [] /log-in
 - [] /create-account
 - [] /tweet/[id]
+
+## 구현해보고 싶은 기능
+
+- [x] Tweet본 횟수 카운트
+- [] 트윗 공유
+- [] 댓글

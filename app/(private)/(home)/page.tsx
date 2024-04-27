@@ -1,10 +1,12 @@
 import useSWR from "swr";
 import { useState } from "react";
 
-import Tweet from "@components/Tweet";
 import { authWithUserSession } from "@lib/server/auth";
 import { SWRProvider } from "@lib/client/swr-provider";
 import TweetForm from "@components/TweetForm";
+import Tweets from "@components/Tweets";
+import { TweetProps } from "@components/Tweet";
+import { getTweets } from "@lib/server/tweet";
 
 /* model Tweet {
   id        Int      @id @default(autoincrement())
@@ -17,9 +19,9 @@ import TweetForm from "@components/TweetForm";
   Coment    Coment[]
 } */
 
-export default function Home() {
+export default async function Home() {
   const userSession = authWithUserSession();
-  console.log(userSession);
+  const tweets = await getTweets();
   return (
     <SWRProvider>
       <main className="w-full min-h-screen pb-10 bg-product-background">
@@ -31,17 +33,7 @@ export default function Home() {
               <TweetForm type="new" />
             </div>
           </div>
-          <div className="flex flex-col">
-            <Tweet />
-            <Tweet />
-            <Tweet />
-            <Tweet />
-            <Tweet />
-            <Tweet />
-            <Tweet />
-            <Tweet />
-            <Tweet />
-          </div>
+          <Tweets tweets={tweets} />
         </div>
       </main>
     </SWRProvider>
