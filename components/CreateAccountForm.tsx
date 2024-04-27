@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import LoadingButton from "./LoadingButton";
-import Input from "./Input";
+import SubmitButton from "./SubmitButton";
+import ValidatedInput from "./ValidatedInput";
 
 interface CreateAccountForm {
   email: string;
@@ -57,7 +57,7 @@ export default function CreateAccountForm() {
     >
       <h1>NEXT-TWEET</h1>
       <h5 className="mb-2 text-2xl">CREATE ACCOUNT</h5>
-      <Input
+      <ValidatedInput
         register={register("email", {
           required: "Enter an email address",
           pattern: {
@@ -73,7 +73,7 @@ export default function CreateAccountForm() {
         <Link href={"/log-in"} className="text-sm text-product-color">
           Log in
         </Link>
-        <LoadingButton isLoading={isLoading} text="Create account" />
+        <SubmitButton isLoading={isLoading} text="Create account" />
       </div>
     </form>
   );

@@ -8,7 +8,7 @@ interface InputProps {
   placeholder: string;
   [key: string]: any;
 }
-export default function Input({
+export default function ValidatedInput({
   register,
   error,
   type,

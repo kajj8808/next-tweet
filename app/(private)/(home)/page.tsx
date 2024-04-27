@@ -1,10 +1,10 @@
 import useSWR from "swr";
 import { useState } from "react";
 
-import Button from "@components/Button";
 import Tweet from "@components/Tweet";
 import { authWithUserSession } from "@lib/server/auth";
 import { SWRProvider } from "@lib/client/swr-provider";
+import TweetForm from "@components/TweetForm";
 
 /* model Tweet {
   id        Int      @id @default(autoincrement())
@@ -26,14 +26,9 @@ export default function Home() {
         <div className="flex flex-col max-w-xl mx-auto">
           <div className="p-5 mt-5 bg-white border-b shadow-lg">
             <h1 className="mb-3 font-semibold tracking-wide">NEXT-TWEET</h1>
-            <h5 className="text-xs">{userSession.value}</h5>
-            <div className="flex gap-1 mt-1">
-              <input
-                type="text"
-                placeholder="tweet"
-                className="w-full p-2 border rounded-md"
-              />
-              <Button text="TWEET" />
+            <div className="-mt-2.5">
+              <h5 className="text-xs">{userSession.value}</h5>
+              <TweetForm type="new" />
             </div>
           </div>
           <div className="flex flex-col">

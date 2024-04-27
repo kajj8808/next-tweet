@@ -1,11 +1,23 @@
-interface LoadingButtonProps {
+import { cls } from "@lib/client/utiles";
+
+interface SubmitButtonProps {
   isLoading: boolean;
   text: string;
+  lightMode?: boolean;
 }
-export default function LoadingButton({ isLoading, text }: LoadingButtonProps) {
+export default function SubmitButton({
+  isLoading,
+  text,
+  lightMode,
+}: SubmitButtonProps) {
   return (
     <button
-      className="px-6 text-xs font-bold tracking-wider text-white rounded-full h-11 bg-product-color"
+      className={cls(
+        "px-6 text-xs tracking-wider rounded-full h-11 bg-product-color hover:bg-opacity-90",
+        lightMode
+          ? " font-light text-white uppercase"
+          : " font-bold  text-white"
+      )}
       disabled={isLoading}
     >
       <span className={isLoading ? "animate-pulse" : ""}>

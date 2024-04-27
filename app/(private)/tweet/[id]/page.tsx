@@ -1,5 +1,5 @@
-import Button from "@components/Button";
 import ReplyTweet from "@components/ReplyTweet";
+import TweetForm from "@components/TweetForm";
 import { authWithUserSession } from "@lib/server/auth";
 import Link from "next/link";
 
@@ -129,14 +129,7 @@ export default async function TweetPage({
         </div>
         <div>
           <div className="p-3 bg-white border-b">
-            <div className="flex gap-1 mt-1">
-              <input
-                type="text"
-                placeholder="post your reply"
-                className="w-full p-2 border rounded-md"
-              />
-              <Button text="REPLY" />
-            </div>
+            <TweetForm type="reply" />
           </div>
           <ReplyTweet />
           <ReplyTweet />

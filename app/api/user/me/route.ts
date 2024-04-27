@@ -5,8 +5,8 @@ interface IResult {
   userId?: string;
   ok: boolean;
 }
-export async function GET() {
-  const session = await getUserSession();
+export function GET() {
+  const session = getUserSession();
   let result: IResult;
   if (session?.value) {
     result = {
