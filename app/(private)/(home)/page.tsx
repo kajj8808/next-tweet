@@ -15,7 +15,7 @@ export default async function Home() {
             <h1 className="mb-3 font-semibold tracking-wide">NEXT-TWEET</h1>
             <div className="-mt-2.5">
               <h5 className="text-xs">{userSession.value}</h5>
-              <TweetForm type="new" />
+              <TweetForm />
             </div>
           </div>
           <Tweets tweets={tweets} />

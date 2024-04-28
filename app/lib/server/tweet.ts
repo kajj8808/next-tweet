@@ -80,3 +80,19 @@ export async function getTweet({
   );
   return { tweet, isLiked };
 }
+
+export async function getComments(tweetId: number) {
+  const comments = await client.coment.findMany({
+    where: {
+      tweetId: tweetId,
+    },
+    include: {
+      user: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+  return comments;
+}

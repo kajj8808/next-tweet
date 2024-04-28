@@ -1,10 +1,11 @@
 import ReplyTweet from "@components/ReplyTweet";
-import TweetForm from "@components/TweetForm";
 import { authWithUserSession } from "@lib/server/auth";
 import { SWRProvider } from "@lib/client/swr-provider";
-import { getTweet } from "@lib/server/tweet";
+import { getComments, getTweet } from "@lib/server/tweet";
 import TweetStatusBar from "@components/TweetStatusBar";
 import Link from "next/link";
+import ReplyTweetForm from "@components/ReplyTweetForm";
+import Comments from "@components/Comments";
 
 export default async function TweetPage({
   params,
@@ -17,11 +18,12 @@ export default async function TweetPage({
     tweetId: +params.id,
     userId: user.id,
   });
+  const comments = await getComments(+id);
 
   return (
     <SWRProvider>
       <main className="flex items-center justify-center w-full min-h-screen pb-10 bg-product-background">
-        <div className="flex flex-col max-w-xl shadow-lg">
+        <div className="flex flex-col w-full max-w-xl shadow-lg">
           <Link href={"/"} className="border-t border-b">
             <div className="relative flex items-center p-5 bg-white">
               <div className="size-4">
@@ -60,13 +62,7 @@ export default async function TweetPage({
             }}
           />
           <div>
-            <div className="p-3 bg-white border-b">
-              <TweetForm type="reply" />
-            </div>
-            <ReplyTweet />
-            <ReplyTweet />
-            <ReplyTweet />
-            <ReplyTweet />
+            <Comments tweetId={tweet?.id!} comments={comments} />
           </div>
         </div>
       </main>

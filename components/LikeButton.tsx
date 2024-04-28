@@ -18,7 +18,9 @@ export default function LikeButton({
       )}
       onClick={onClick}
     >
-      <div className={cls("size-5", isLiked ? "text-red-500" : "")}>
+      <div
+        className={cls("size-5", isLiked ? "animate-jump-in text-red-500" : "")}
+      >
         {isLiked ? (
           <svg
             data-slot="icon"
@@ -47,7 +49,7 @@ export default function LikeButton({
           </svg>
         )}
       </div>
-      <p className="text-sm">{likes}</p>
+      <p className="text-sm select-none">{likes}</p>
     </button>
   );
 }

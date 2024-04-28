@@ -12,6 +12,5 @@ export async function GET() {
       tweetId: true,
     },
   });
-  console.log(likes);
   return NextResponse.json({ likes });
 }

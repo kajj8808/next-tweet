@@ -57,6 +57,7 @@ model TweetView {
 
 model Coment {
   id        Int      @id @default(autoincrement())
+  text      String
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
   tweet     Tweet    @relation(fields: [tweetId], references: [id])
