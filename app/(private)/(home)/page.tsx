@@ -7,6 +7,7 @@ import { getTweets } from "@lib/server/tweet";
 export default async function Home() {
   const userSession = authWithUserSession();
   const tweets = await getTweets();
+  console.log(userSession);
   return (
     <SWRProvider>
       <main className="w-full min-h-screen pb-10 bg-product-background">
@@ -14,7 +15,7 @@ export default async function Home() {
           <div className="p-5 mt-5 bg-white border-b shadow-lg">
             <h1 className="mb-3 font-semibold tracking-wide">NEXT-TWEET</h1>
             <div className="-mt-2.5">
-              <h5 className="text-xs">{userSession.value}</h5>
+              <h5 className="text-xs">{userSession.name}</h5>
               <TweetForm />
             </div>
           </div>

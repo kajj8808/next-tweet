@@ -50,7 +50,9 @@ export default async function TweetPage({
             <h5 className="mb-2 text-sm font-semibold tracking-wider text-product-color">
               {tweet?.user.name}
             </h5>
-            <span className="text-sm tracking-normal">{tweet?.text}</span>
+            <span className="text-sm tracking-normal text-balance">
+              {tweet?.text}
+            </span>
           </div>
           <TweetStatusBar
             barStatus={{

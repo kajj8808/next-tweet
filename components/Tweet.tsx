@@ -35,7 +35,7 @@ export default function Tweet({ tweet }: { tweet: TweetProps }) {
       <h5 className="text-sm font-semibold tracking-wider text-product-color">
         {tweet.user.name}
       </h5>
-      <span className="text-sm tracking-normal text-product-color">
+      <span className="text-sm tracking-normal text-product-color text-balance line-clamp-3">
         {tweet.text}
       </span>
       <div className="relative flex justify-between mt-5 text-gray-800">

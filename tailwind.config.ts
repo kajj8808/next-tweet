@@ -20,6 +20,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animated"), require("tailwind-scrollbar")],
+  plugins: [
+    require("tailwindcss-animated"),
+    require("tailwind-scrollbar"),
+    require("@tailwindcss/line-clamp"),
+  ],
 };
 export default config;
