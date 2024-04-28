@@ -6,67 +6,7 @@ import client from "@lib/server/client";
 import { redirect } from "next/navigation";
 import { SWRProvider } from "@lib/client/swr-provider";
 import TweetStatusBar from "@components/TweetStatusBar";
-
-async function getTweet({
-  tweetId,
-  userId,
-}: {
-  tweetId: number;
-  userId: number;
-}) {
-  try {
-    const isPageViewed = Boolean(
-      await client.tweetView.findFirst({
-        where: {
-          AND: {
-            tweetId: tweetId,
-            userId: userId,
-          },
-        },
-        select: {
-          id: true,
-        },
-      })
-    );
-    if (!isPageViewed) {
-      await client.tweetView.create({
-        data: {
-          tweetId: tweetId,
-          userId: userId,
-        },
-      });
-    }
-    const tweet = await client.tweet.findUnique({
-      where: {
-        id: tweetId,
-      },
-      include: {
-        user: {
-          select: {
-            name: true,
-          },
-        },
-        _count: {
-          select: {
-            Like: true,
-            TweetView: true,
-            Share: true,
-          },
-        },
-        Coment: true,
-      },
-    });
-    const isLiked = Boolean(
-      await client.like.findFirst({
-        where: { tweetId: tweetId, userId: userId },
-        select: { id: true },
-      })
-    );
-    return { tweet, isLiked };
-  } catch (error) {
-    return redirect("/");
-  }
-}
+import { getTweet } from "@lib/server/tweet";
 
 export default async function TweetPage({
   params,
@@ -79,6 +19,7 @@ export default async function TweetPage({
     tweetId: +params.id,
     userId: user.id,
   });
+
   return (
     <SWRProvider>
       <main className="flex items-center justify-center w-full min-h-screen pb-10 bg-product-background">

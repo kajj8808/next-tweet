@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LikeButton from "./LikeButton";
-import { useRouter } from "next/navigation";
+import useSWR from "swr";
 
-interface TweetStatusBarProsp {
+interface TweetStatusBarProps {
   tweetId: number;
   commentLength: number | undefined;
   shareLength: number | undefined;
@@ -15,31 +15,25 @@ interface TweetStatusBarProsp {
 export default function TweetStatusBar({
   barStatus,
 }: {
-  barStatus: TweetStatusBarProsp;
+  barStatus: TweetStatusBarProps;
 }) {
-  const router = useRouter();
+  const { data, mutate } = useSWR(`/api/tweets/${barStatus.tweetId}`);
 
   const [isLiked, setIsLiked] = useState(barStatus.like.isLiked);
   const [likeLength, setLikeLength] = useState(barStatus.like.length!);
 
-  useEffect(() => {
-    router.refresh();
-
-    setIsLiked(barStatus.like.isLiked);
-    setLikeLength(barStatus.like.length!);
-  }, [barStatus]);
-  const onLikeClick = () => {
+  const onLikeClick = async () => {
     setIsLiked((prev) => !prev);
-
     if (isLiked) {
       setLikeLength((prev) => prev - 1);
     } else {
       setLikeLength((prev) => prev + 1);
     }
     // 서버로 실제 데이터 전송
-    fetch(`/api/tweets/${barStatus.tweetId}/like`);
+    await fetch(`/api/tweets/${barStatus.tweetId}/like`);
+    mutate();
   };
-
+  console.log(data);
   return (
     <div className="relative flex justify-between px-2 py-3 text-gray-800 bg-white border-t border-b">
       <div className="flex gap-1 p-1 rounded-full cursor-pointer hover:bg-slate-200">
@@ -60,7 +54,10 @@ export default function TweetStatusBar({
             ></path>
           </svg>
         </div>
-        <p className="text-sm">{barStatus.commentLength}</p>
+
+        <p className="text-sm">
+          {data ? data.result.tweet.Coment.length : barStatus.commentLength}
+        </p>
       </div>
       <div className="flex gap-1 p-1 rounded-full cursor-pointer hover:bg-slate-200">
         <div className="size-5">
@@ -80,10 +77,16 @@ export default function TweetStatusBar({
             ></path>
           </svg>
         </div>
-        <p className="text-sm">{barStatus.shareLength}</p>
+        <p className="text-sm">
+          {data ? data.result.tweet._count.Share : barStatus.shareLength}
+        </p>
       </div>
 
-      <LikeButton onClick={onLikeClick} isLiked={isLiked} likes={likeLength} />
+      <LikeButton
+        onClick={onLikeClick}
+        isLiked={data ? data.result.isLiked : isLiked}
+        likes={data ? data.result.tweet._count.Like : likeLength}
+      />
       <div className="flex gap-1 p-1 rounded-full cursor-pointer hover:bg-slate-200">
         <div className="size-5">
           <svg
@@ -102,7 +105,9 @@ export default function TweetStatusBar({
             ></path>
           </svg>
         </div>
-        <p className="text-sm">{barStatus.viewLength}</p>
+        <p className="text-sm">
+          {data ? data.result.tweet._count.TweetView : barStatus.viewLength}
+        </p>
       </div>
     </div>
   );
