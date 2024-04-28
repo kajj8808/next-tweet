@@ -1,8 +1,4 @@
-import {
-  createUserSession,
-  deleteUserSession,
-  getUserSession,
-} from "@lib/server/session";
+import { getUserSession } from "@lib/server/session";
 import { NextRequest, NextResponse } from "next/server";
 import client from "@lib/server/client";
 

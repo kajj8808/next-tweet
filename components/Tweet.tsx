@@ -1,7 +1,6 @@
 "use client";
-import type { Coment, Like, Tweet, TweetView, User } from "@prisma/client";
+import type { Tweet } from "@prisma/client";
 import Link from "next/link";
-import TweetStatusBar from "./TweetStatusBar";
 
 import useSWR from "swr";
 import { useEffect, useState } from "react";

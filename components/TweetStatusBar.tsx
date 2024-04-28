@@ -33,7 +33,7 @@ export default function TweetStatusBar({
     await fetch(`/api/tweets/${barStatus.tweetId}/like`);
     mutate();
   };
-  console.log(data);
+
   return (
     <div className="relative flex justify-between px-2 py-3 text-gray-800 bg-white border-t border-b">
       <div className="flex gap-1 p-1 rounded-full cursor-pointer hover:bg-slate-200">

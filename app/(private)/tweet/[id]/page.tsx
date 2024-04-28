@@ -1,12 +1,10 @@
 import ReplyTweet from "@components/ReplyTweet";
 import TweetForm from "@components/TweetForm";
 import { authWithUserSession } from "@lib/server/auth";
-import Link from "next/link";
-import client from "@lib/server/client";
-import { redirect } from "next/navigation";
 import { SWRProvider } from "@lib/client/swr-provider";
-import TweetStatusBar from "@components/TweetStatusBar";
 import { getTweet } from "@lib/server/tweet";
+import TweetStatusBar from "@components/TweetStatusBar";
+import Link from "next/link";
 
 export default async function TweetPage({
   params,

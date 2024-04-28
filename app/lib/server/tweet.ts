@@ -1,9 +1,7 @@
 import { TweetProps } from "@components/Tweet";
 import client from "@lib/server/client";
-import { getUserSession } from "./session";
 
 export async function getTweets() {
-  const user = getUserSession();
   const tweets = (await client?.tweet.findMany({
     include: {
       user: {

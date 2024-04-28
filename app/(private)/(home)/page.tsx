@@ -1,23 +1,8 @@
-import useSWR from "swr";
-import { useState } from "react";
-
 import { authWithUserSession } from "@lib/server/auth";
 import { SWRProvider } from "@lib/client/swr-provider";
 import TweetForm from "@components/TweetForm";
 import Tweets from "@components/Tweets";
-import { TweetProps } from "@components/Tweet";
 import { getTweets } from "@lib/server/tweet";
-
-/* model Tweet {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  text      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Like      Like[]
-  Coment    Coment[]
-} */
 
 export default async function Home() {
   const userSession = authWithUserSession();

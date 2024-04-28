@@ -1,7 +1,6 @@
 import { getUserSession } from "@lib/server/session";
 import { NextRequest, NextResponse } from "next/server";
 import client from "@lib/server/client";
-import { connect } from "http2";
 
 export async function GET(
   req: NextRequest,
