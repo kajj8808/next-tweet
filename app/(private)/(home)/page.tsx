@@ -7,7 +7,6 @@ import { getTweets } from "@lib/server/tweet";
 export default async function Home() {
   const userSession = authWithUserSession();
   const tweets = await getTweets();
-  console.log(userSession);
   return (
     <SWRProvider>
       <main className="w-full min-h-screen pb-10 bg-product-background">

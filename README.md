@@ -55,6 +55,10 @@
 
 ## Screenshot
 
+- ![home_screen](https://github.com/kajj8808/next-tweet/assets/71279997/3477c516-a7fb-4f40-955a-f0def9eaaa9e)
+- ![tweet_screen](https://github.com/kajj8808/next-tweet/assets/71279997/938e8f3b-33d2-4099-b863-b896c7105580)
+- ![과제_스크린샷](https://github.com/kajj8808/next-tweet/assets/71279997/df76f16e-2471-458f-b5f8-c3a6d7d0eaa8)
+
 ## next tweet 기간 이후 재작업 하고 싶은 내용
 
 - [] tweet 삭제 기능
@@ -63,3 +67,4 @@
 - [] 스파게티 코드 정리
 - [] SSR 에서 받아온 데이터를 받아온후 SWR으로 넘어가는 부분에서 문제가 많다.. 이부분을 정리..
 - [] tailwind css 커스텀 기능 찾아보기
+- [] 404 페이지 작업 + 에러 페이지 작업
