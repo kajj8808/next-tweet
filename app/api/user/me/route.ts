@@ -9,9 +9,9 @@ interface IResult {
 export function GET() {
   const session = getUserSession();
   let result: IResult;
-  if (session?.value) {
+  if (session?.id) {
     result = {
-      userId: session.value,
+      userId: session.id,
       ok: true,
     };
   } else {
