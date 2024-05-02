@@ -16,9 +16,9 @@ export default function ShareButton({
   const [showCopyText, setShowCopyText] = useState(false);
   const { mutate } = useSWR(`/api/tweets/${tweetId}`);
 
-  const onClick = () => {
+  const onClick = async () => {
+    await navigator.clipboard.writeText(shareUrl);
     setShowCopyText(true);
-    navigator.clipboard.writeText(shareUrl);
     fetch(`/api/tweets/${tweetId}/share`);
     mutate();
     setTimeout(() => {
