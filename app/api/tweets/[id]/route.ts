@@ -1,6 +1,7 @@
 import { getUserSession } from "@lib/server/session";
 import { NextRequest, NextResponse } from "next/server";
 import { getTweet } from "@lib/server/tweet";
+export const dynamic = "force-dynamic"; // static by default, unless reading the request
 
 export async function GET(
   req: NextRequest,
