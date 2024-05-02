@@ -4,6 +4,8 @@ import TweetForm from "@components/TweetForm";
 import Tweets from "@components/Tweets";
 import { getTweets } from "@lib/server/tweet";
 
+export const revalidate = 1;
+
 export default async function Home() {
   const userSession = authWithUserSession();
   const tweets = await getTweets();
