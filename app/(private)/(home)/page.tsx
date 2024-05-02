@@ -5,6 +5,7 @@ import Tweets from "@components/Tweets";
 import { getTweets } from "@lib/server/tweet";
 
 export const revalidate = 1;
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const userSession = authWithUserSession();
