@@ -7,9 +7,6 @@ import Link from "next/link";
 import ReplyTweetForm from "@components/ReplyTweetForm";
 import Comments from "@components/Comments";
 
-export const revalidate = 1;
-export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
 export default async function TweetPage({
   params,
 }: {

@@ -1,5 +1,6 @@
 import { TweetProps } from "@components/Tweet";
 import client from "@lib/server/client";
+export const fetchCache = "force-no-store";
 
 export async function getTweets() {
   const tweets = (await client?.tweet.findMany({
